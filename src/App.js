@@ -1,27 +1,17 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import HomePage from "./pages/HomePage";
+import ContactPage from "./pages/ContactPage";
+import Navbar from "./components/Navbar.component";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
-  let [todos, setTodos] = useState([]);
-
-  useEffect(async () => {
-    let res = await fetch("http://localhost:8080/todos", {
-      method: "GET",
-    });
-    let data = await res.json();
-    setTodos(data);
-  }, []);
-
   return (
-    <div className="todo-container">
-      {todos.map((todo) => {
-        return (
-          <div>
-            <h2>{todo.title}</h2>
-            <p>{todo.body}</p>
-          </div>
-        );
-      })}
+    <div>
+      <Navbar />
+      <BrowserRouter>
+        <Route path="/" exact component={HomePage}></Route>
+        <Route path="/contact" exact component={ContactPage} />
+      </BrowserRouter>
     </div>
   );
 }
